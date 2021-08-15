@@ -1,22 +1,32 @@
 {
-  "name": "notes-simple",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "11.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
-  },
-  "devDependencies": {
-    "@types/react": "17.0.18",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
-    "typescript": "4.3.5"
-  }
+    "name": "simple-notes",
+    "version": "0.1.0",
+    "description": "Simple notes",
+    "author": "vi.latyshev",
+    "license": "MIT",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "yarn build && next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@material-ui/core": "^4.12.3",
+        "next": "11.1.0",
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "^16.6.1",
+        "@types/react": "17.0.18",
+        "@typescript-eslint/eslint-plugin": "^4.29.1",
+        "@typescript-eslint/parser": "^4.29.1",
+        "eslint": "7.32.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-config-airbnb-typescript": "^12.3.1",
+        "eslint-config-next": "11.1.0",
+        "eslint-plugin-import": "^2.24.0",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "typescript": "4.3.5"
+    }
 }

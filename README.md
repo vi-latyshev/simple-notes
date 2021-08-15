@@ -1,34 +1,178 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This project is based on [old project with CRA]().
 
-## Getting Started
+# Simple Notes
 
-First, run the development server:
+## Sections
+1. [Links](#links)
+1. [Requirements](#requirements)
+1. [Technology stack](#technology-stack)
+1. [Browsers support](#browsers-support)
+1. [Install](#install)
+1. [Start developing](#start-developing)
+1. [Scripts commands](#scripts-commands)
+1. [Structure](#structure)
+1. [Developing steps](#developing-steps)
+    * [Branches](#branches)
+    * [Commits](#commits)
+        * [Examples](#examples)
+    * [Pull Requests](#pull-requests)
+
+## Links
+
+### Site urls:
+
+* https://simple-notes-vi.vercel.app/
+
+## Requirements
+
+* node `^15.0.0` - [install](https://nodejs.org/en/download/)
+* yarn `^1.22.0` - [install](https://yarnpkg.com/en/docs/install/)
+
+## Technology stack
+
+* [React 16.8+](https://reactjs.org/) ─ base of app. Using functional components with hooks
+* [Next.js](https://nextjs.org/) ─ framework for ssr and api
+* [Typescript](https://www.typescriptlang.org/) - static type definitions
+* [Material-UI](https://material-ui.com/) ─ components of user interface
+* [axios](https://github.com/axios/axios) ─ xhr requests
+
+## Browsers support
+
+Consider the minimum supported browser versions while developing:
+
+* Internet Explorer **10+**
+* Google Chrome **23+**
+* Mozilla Firefox **21+**
+* Safari **6+**
+
+## Install
+
+Clone project from repository and install all project's dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
+git clone git@github.com/vi-latyshev/simple-notes
+cd simple-notes
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Start developing
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Runs which starts Next.js in development mode:
+```bash
+yarn dev
+```
+This starts the development server on http://localhost:3000.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Scripts commands
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+|`yarn <script>`    |Description|
+|-------------------|-----------|
+|`dev`              |Run app in develop mode|
+|`lint`             |Run lint and type code check|
+|`build`            |[Build app](#build) in production mode|
+|`start`            |[Build and start app](#start-app) in production mode|
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
+### The project structure has both flat and [fractal structure](https://github.com/davezuko/react-redux-starter-kit/wiki/Fractal-Project-Structure)s.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Important!** - Top-level `components`, `hooks`, `utils` and `icons` directories contain reusable components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+|── public                      # static files (icons, images, robots.txt and etc)
+|── src                         # all source files
+|   |── components              # common reuseble components
+|   |── configs                 # server/client configs (routes, csp and etc)
+|   |── constants               # frontend constants (links, contacts, socials and etc)
+|   |── hooks                   # common reuseble hooks
+|   |── icons                   # common reuseble icons
+|   |── pages                   # names of pages for routing
+|   |   |── _app.tsx            # 'head layout' of page. Used by Next.js
+|   |   |── _document.tsx       # 'head layout' of all pages, uses server-side rendering. Used by Next.js
+|   |   |── index.tsx           # home page, includes all sections/components from `./views/home`
+|   |   └── about.tsx           # some any page, includes all sections/components from `./views/about`
+|   |── styles                  # settings theme for material-ui
+|   |── types                   # types of node_modules libs for redeclaration
+|   └── views                   # includes all `components`, `hooks`, `utils` and `icons` used only on specific page
+|       |── home                # name of page
+|       |   |── hooks           # hooks only for 'home' page
+|       |   |── icons           # icons only for 'home' page
+|       |   |── index.ts        # all exports components/interfaces for importing components of 'home' page
+|       |   └── List.tsx        # some any component
+|       └── about               # some any page
+└──
+```
 
-## Deploy on Vercel
+Within of a fractal structure, an example of a list component might look like this:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+…
+|   |── SmthList
+|   |   |── index.ts            # all exports components/interfaces for importing this component
+|   |   |── SmthList.tsx        # includes all logic of component
+|   |   |── constants.ts        # constants for this component, mostly to avoid circular dependencies
+|   |   |── utils               # some utilities различные вспомогательные утилиты
+|   |   |   └── smthFormatter.ts
+|   |   └── Row                 # component representing list line
+|   |       |── index.tx        # all exports components/interfaces for importing list line
+|   |       └── Row.tsx         # includes all logic of list line
+…
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Developing steps
+
+### Branches
+
+The process of adding new functionality begins by creating a new branch for development, branching from the `develop` branch. The name prefix for the branch is selected based on the type of added functionality:
+
+* `feat` ─ adding new user features
+* `fix` ─ fixing bugs
+* `chore` ─ adding / updating new features that with doesn't affect user code. Example, optimizing package builds, code rules and etc
+* `docs` ─ documentation
+
+Then comes the `/` character and a short associative name in `kebab-case`.
+
+So, for example, the name of the branch for adding the change new header may have the name: `feat/new-header`.
+
+### Commits
+
+Comments to commits are formatted to the following rule:
+
+```
+<type>: <subject>
+```
+
+#### Type
+
+* `feat` - using for adding new feature
+* `fix` - fixing some bug
+* `docs` - add or update docs
+* `test` - add or update tests for app
+* `chore` - optimizing package builds, code rules and etc
+
+#### Subject
+
+Common style message:
+
+```
+action (with lower case) + for which entity + (optional details)
+```
+
+For example:
+```
+fix margin in button
+```
+
+#### Examples commmits:
+
+```
+feat: add phone in contact
+fix: fix shadow for modal
+chore: add rewrite for redirect in next config
+```
+
+### Pull Requests
+
+The development process ends with a Pull Request of the development branch in the `master` or other base branch of project.
+* If the base branch has gone ahead during development, it is necessary to `rebase` from it.
+* After approved PR, it is necessary to `squash and merge` with base branch and `delete` development branch.
