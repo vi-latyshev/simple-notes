@@ -24,13 +24,13 @@ const palette = createPalette({
 });
 
 const breakpoints = createBreakpoints({
-    // values: {
-    //     xs: 0,
-    //     sm: 576,
-    //     md: 894,
-    //     lg: 1150,
-    //     xl: 1480,
-    // },
+    values: {
+        xs: 0,
+        sm: 576,
+        md: 894,
+        lg: 1150,
+        xl: 1480,
+    },
 });
 
 const spacing = createSpacing(8);
@@ -53,7 +53,7 @@ const typography = createTypography(palette, {
         fontSize: '1.5rem', // 24px
     },
     body1: {
-        fontSize: '1rem', // 16px
+        fontSize: '0.875rem', // 14px
     },
     fontFamily: [
         '"Tahoma"',
@@ -66,7 +66,11 @@ let muiTheme = createTheme({
     breakpoints,
     spacing,
     typography,
-    props: {},
+    props: {
+        MuiContainer: {
+            maxWidth: 'lg',
+        },
+    },
     overrides: {},
 });
 
