@@ -3,6 +3,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 const useStyles = makeStyles(({ palette }) => ({
     footer: {
         position: 'absolute',
+        display: 'flex',
         width: '100%',
         bottom: 0,
         padding: '10px 15px',
@@ -17,7 +18,7 @@ export const Footer = () => {
     return (
         <footer className={classes.footer}>
             <Typography>
-                © 2020 some copyright
+                © 2020-{new Date().getFullYear()} | Vi
             </Typography>
         </footer>
     );

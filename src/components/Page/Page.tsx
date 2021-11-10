@@ -1,5 +1,7 @@
 import { Container, makeStyles } from '@material-ui/core';
 
+import { Footer } from 'components/Footer';
+
 import { MetaTags } from './MetaTags';
 
 import type { MetaTagsProps } from './MetaTags';
@@ -35,6 +37,7 @@ export const Page = ({ title, description, children }: PageProps) => {
                     <main className={classes.main}>
                         {children}
                     </main>
+                    <Footer />
                 </div>
             </Container>
         </>
