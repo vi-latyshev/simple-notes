@@ -4,11 +4,16 @@
     "description": "Simple notes",
     "author": "vi.latyshev",
     "license": "MIT",
+    "repository": {
+        "url": "https://github.com/vi-latyshev/simple-notes",
+        "type": "git"
+    },
     "scripts": {
+        "prepare": "husky install",
         "dev": "next dev",
         "build": "next build",
         "start": "yarn build && next start",
-        "lint": "next lint"
+        "test": "next lint"
     },
     "dependencies": {
         "@material-ui/core": "^4.12.3",
@@ -19,6 +24,7 @@
         "react-hook-form": "^7.19.4"
     },
     "devDependencies": {
+        "@commitlint/cli": "^14.1.0",
         "@types/node": "^16.6.1",
         "@types/react": "17.0.18",
         "@typescript-eslint/eslint-plugin": "^4.29.1",
@@ -29,6 +35,7 @@
         "eslint-config-next": "11.1.0",
         "eslint-plugin-import": "^2.24.0",
         "eslint-plugin-jsx-a11y": "^6.4.1",
+        "husky": "^7.0.4",
         "typescript": "4.3.5"
     }
 }
