@@ -19,10 +19,9 @@ const useStyles = makeStyles(({ palette }) => ({
         flexDirection: 'column',
         backgroundColor: palette.common.white,
         height: '100vh',
-        margin: '0 15px',
         boxShadow: `0px 10px 20px ${alpha(palette.divider, 0.07)}`,
     },
-    main: {
+    page: {
         margin: 20,
     },
 }));
@@ -33,13 +32,11 @@ export const Page = ({ title, description, children }: PageProps) => {
     return (
         <>
             <MetaTags title={title} description={description} />
-            <Container disableGutters>
-                <div className={classes.pageContainer}>
-                    <main className={classes.main}>
-                        {children}
-                    </main>
-                    <Footer />
+            <Container disableGutters className={classes.pageContainer}>
+                <div className={classes.page}>
+                    {children}
                 </div>
+                <Footer />
             </Container>
         </>
     );

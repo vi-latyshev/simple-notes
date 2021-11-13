@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Button, makeStyles } from '@material-ui/core';
 import { Create, Delete } from '@material-ui/icons';
 
@@ -54,10 +55,12 @@ export const NoteItem = ({
                 {description}
             </div>
             <div className={classes.buttonContainer}>
-                <Button variant="outlined" className={classes.button}>
-                    <Create fontSize="inherit" />
-                </Button>
-                <Button color="secondary" variant="outlined" className={classes.button}>
+                <Link href={`/${index}`} passHref>
+                    <Button className={classes.button}>
+                        <Create fontSize="inherit" />
+                    </Button>
+                </Link>
+                <Button color="secondary" className={classes.button}>
                     <Delete fontSize="inherit" />
                 </Button>
             </div>

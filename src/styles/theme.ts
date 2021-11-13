@@ -62,6 +62,10 @@ let muiTheme = createTheme({
         },
         MuiButton: {
             color: 'primary',
+            variant: 'outlined',
+        },
+        MuiTextField: {
+            variant: 'outlined',
         },
     },
     overrides: {},

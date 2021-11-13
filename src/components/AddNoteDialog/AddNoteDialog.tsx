@@ -5,18 +5,17 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
-    DialogContentText,
 } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 
 import { InputText } from 'components/controls';
 
-import type { Note } from 'types/note';
+import type { NoteBase } from 'types/note';
 
 export interface AddNoteDialogProps {
     isOpen: boolean;
     onClose: () => void;
-    onAdd: (values: Note) => void;
+    onAdd: (values: NoteBase) => void;
 }
 
 export const AddNoteDialog = ({
@@ -30,14 +29,12 @@ export const AddNoteDialog = ({
         trigger,
         formState,
         getValues,
-    } = useForm<Note>({
-        mode: 'all',
-    });
+    } = useForm<NoteBase>();
 
     const handleClose: AddNoteDialogProps['onClose'] = useCallback(() => {
         reset();
         onClose();
-    }, [reset, onClose]);
+    }, []);
 
     const handleAdd = useCallback(async () => {
         const isValid = await trigger();
@@ -49,7 +46,7 @@ export const AddNoteDialog = ({
 
         onAdd(values);
         handleClose();
-    }, [onAdd, trigger, getValues, handleClose]);
+    }, []);
 
     return (
         <Dialog
@@ -60,19 +57,16 @@ export const AddNoteDialog = ({
         >
             <DialogTitle id="add-note">Добавить задачу</DialogTitle>
             <DialogContent>
-                <DialogContentText>
-                    Краткое описание
-                </DialogContentText>
                 <InputText
                     control={control}
-                    label="Описание"
+                    label="Краткое описание"
                     name="description"
                     rules={{ required: 'Заголовок не может быть пустым' }}
                 />
             </DialogContent>
             <DialogActions>
                 <Button
-                    color="primary"
+                    variant="text"
                     onClick={handleAdd}
                     disabled={!formState.isDirty}
                 >

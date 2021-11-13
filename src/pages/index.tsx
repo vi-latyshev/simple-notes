@@ -1,21 +1,14 @@
 import { useCallback, useState } from 'react';
-import { Button, Typography, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 
 import { Page } from 'components/Page';
+import { Header } from 'components/Header';
 import { NoteItem } from 'components/NoteItem';
 import { AddNoteDialog } from 'components/AddNoteDialog';
 
-import type { NextPage } from 'next';
 import type { AddNoteDialogProps } from 'components/AddNoteDialog';
 
 const useStyles = makeStyles({
-    headerContainer: {
-        display: 'flex',
-        alignItems: 'center',
-    },
-    header: {
-        flex: 1,
-    },
     notesContainer: {
         display: 'flex',
         flexDirection: 'column',
@@ -23,7 +16,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Home: NextPage = () => {
+const Home = () => {
     const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -42,28 +35,21 @@ const Home: NextPage = () => {
 
     return (
         <Page>
-            <div className={classes.headerContainer}>
-                <Typography variant="h1" className={classes.header}>
-                    Список задач
-                </Typography>
-                <Button
-                    color="primary"
-                    variant="outlined"
-                    onClick={handleOpenAddNote}
-                >
+            <Header title="Список задач">
+                <Button onClick={handleOpenAddNote}>
                     Добавить
                 </Button>
-            </div>
-            <div className={classes.notesContainer}>
-                {/* н/д */}
-                <NoteItem index={1} description="test" />
-                <NoteItem index={2} description="test 2" />
-            </div>
+            </Header>
             <AddNoteDialog
                 isOpen={isOpen}
                 onAdd={handleOnAddNote}
                 onClose={handleCloseAddNote}
             />
+            <main className={classes.notesContainer}>
+                {/* н/д */}
+                <NoteItem index={1} description="test" />
+                <NoteItem index={2} description="test 2" />
+            </main>
         </Page>
     );
 };

@@ -1,4 +1,4 @@
-This project is based on [old project with CRA]().
+This project is based on [old project with CRA](https://github.com/vi-latyshev/megapolis-it-test).
 
 # Simple Notes
 
@@ -68,7 +68,7 @@ This starts the development server on http://localhost:3000.
 |`yarn <script>`    |Description|
 |-------------------|-----------|
 |`dev`              |Run app in develop mode|
-|`lint`             |Run lint and type code check|
+|`test`             |Run lint for type code check, and code test|
 |`build`            |[Build app](#build) in production mode|
 |`start`            |[Build and start app](#start-app) in production mode|
 
