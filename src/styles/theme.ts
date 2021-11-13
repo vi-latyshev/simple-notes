@@ -8,16 +8,6 @@ import type { TypographyStyleOptions } from '@material-ui/core/styles/createTypo
 
 const palette = createPalette({
     type: 'light',
-    // primary: {
-    //     main: '#2EC5CE',
-    // },
-    // secondary: {
-    //     main: '#FE8A27',
-    // },
-    // text: {
-    //     primary: '#333333',
-    //     secondary: '#636363',
-    // },
     background: {
         default: '#f2f2f2',
     },
@@ -42,15 +32,15 @@ const defaultTypographyHeadings: TypographyStyleOptions = {
 const typography = createTypography(palette, {
     h1: {
         ...defaultTypographyHeadings,
-        fontSize: '2.875rem', // 46px
+        fontSize: '2rem', // 32
     },
     h2: {
         ...defaultTypographyHeadings,
-        fontSize: '2.5rem', // 40px
+        // fontSize: '2.5rem', // 40px
     },
     h3: {
         ...defaultTypographyHeadings,
-        fontSize: '1.5rem', // 24px
+        // fontSize: '1.5rem', // 24px
     },
     body1: {
         fontSize: '0.875rem', // 14px
@@ -69,6 +59,9 @@ let muiTheme = createTheme({
     props: {
         MuiContainer: {
             maxWidth: 'lg',
+        },
+        MuiButton: {
+            color: 'primary',
         },
     },
     overrides: {},

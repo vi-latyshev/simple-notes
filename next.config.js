@@ -4,7 +4,6 @@ const VERCEL_URL = process.env.VERCEL_URL;
 
 /** @type {import('next').NextConfig} */
 module.exports = {
-    reactStrictMode: true,
     eslint: {
         dirs: [
             'src',

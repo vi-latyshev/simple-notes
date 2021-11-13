@@ -1,4 +1,4 @@
-import { Container, makeStyles } from '@material-ui/core';
+import { alpha, Container, makeStyles } from '@material-ui/core';
 
 import { Footer } from 'components/Footer';
 
@@ -20,9 +20,10 @@ const useStyles = makeStyles(({ palette }) => ({
         backgroundColor: palette.common.white,
         height: '100vh',
         margin: '0 15px',
+        boxShadow: `0px 10px 20px ${alpha(palette.divider, 0.07)}`,
     },
     main: {
-        margin: 15,
+        margin: 20,
     },
 }));
 
