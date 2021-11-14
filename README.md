@@ -2,6 +2,10 @@ This project is based on [old project with CRA](https://github.com/vi-latyshev/m
 
 # Simple Notes
 
+**Attention:**
+- *that project was developed specifically to showcase my development stack*
+- *the design is ugly because i'm not designer, but developer*
+
 ## Sections
 1. [Links](#links)
 1. [Requirements](#requirements)
@@ -35,6 +39,9 @@ This project is based on [old project with CRA](https://github.com/vi-latyshev/m
 * [Typescript](https://www.typescriptlang.org/) - static type definitions
 * [Material-UI](https://material-ui.com/) ─ components of user interface
 * [axios](https://github.com/axios/axios) ─ xhr requests
+* [SWR](https://swr.vercel.app/) - data fetching
+* [react-hook-form](https://react-hook-form.com/) ─ react forms
+* [ioredis](https://github.com/luin/ioredis) - redis client
 
 ## Browsers support
 
@@ -72,6 +79,8 @@ This starts the development server on http://localhost:3000.
 |`build`            |[Build app](#build) in production mode|
 |`start`            |[Build and start app](#start-app) in production mode|
 
+Others commands are used by auto services for build/deploy the project.
+
 ## Structure
 
 ### The project structure has both flat and [fractal structure](https://github.com/davezuko/react-redux-starter-kit/wiki/Fractal-Project-Structure)s.
@@ -86,7 +95,10 @@ This starts the development server on http://localhost:3000.
 |   |── constants               # frontend constants (links, contacts, socials and etc)
 |   |── hooks                   # common reuseble hooks
 |   |── icons                   # common reuseble icons
+|   |── lib                     # some libs for using in server (/pages/api/*)
 |   |── pages                   # names of pages for routing
+|   |   |── api                 # api directory by Next.js
+|   |   |   └── notes           # some any REST endpoint
 |   |   |── _app.tsx            # 'head layout' of page. Used by Next.js
 |   |   |── _document.tsx       # 'head layout' of all pages, uses server-side rendering. Used by Next.js
 |   |   |── index.tsx           # home page, includes all sections/components from `./views/home`
