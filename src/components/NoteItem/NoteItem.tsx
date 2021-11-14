@@ -2,10 +2,9 @@ import Link from 'next/link';
 import { Button, makeStyles } from '@material-ui/core';
 import { Create, Delete } from '@material-ui/icons';
 
-interface NoteItemProps {
-    index: number;
-    description: string;
-}
+import type { Note } from 'types/note';
+
+interface NoteItemProps extends Note { }
 
 const useStyles = makeStyles(({ palette }) => ({
     note: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles(({ palette }) => ({
 }));
 
 export const NoteItem = ({
-    index,
+    id,
     description,
 }: NoteItemProps) => {
     const classes = useStyles();
@@ -49,13 +48,13 @@ export const NoteItem = ({
     return (
         <div className={classes.note}>
             <div className={classes.index}>
-                {index}
+                {id}
             </div>
             <div className={classes.description}>
                 {description}
             </div>
             <div className={classes.buttonContainer}>
-                <Link href={`/${index}`} passHref>
+                <Link href={`/${id}`} passHref>
                     <Button className={classes.button}>
                         <Create fontSize="inherit" />
                     </Button>

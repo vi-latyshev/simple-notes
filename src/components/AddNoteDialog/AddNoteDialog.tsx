@@ -10,17 +10,15 @@ import { useForm } from 'react-hook-form';
 
 import { InputText } from 'components/controls';
 
-import type { NoteBase } from 'types/note';
+import type { NoteData } from 'types/note';
 
 export interface AddNoteDialogProps {
     isOpen: boolean;
     onClose: () => void;
-    onAdd: (values: NoteBase) => void;
 }
 
 export const AddNoteDialog = ({
     isOpen,
-    onAdd,
     onClose,
 }: AddNoteDialogProps) => {
     const {
@@ -29,7 +27,7 @@ export const AddNoteDialog = ({
         trigger,
         formState,
         getValues,
-    } = useForm<NoteBase>();
+    } = useForm<NoteData>();
 
     const handleClose: AddNoteDialogProps['onClose'] = useCallback(() => {
         reset();
@@ -44,7 +42,6 @@ export const AddNoteDialog = ({
         }
         const values = getValues();
 
-        onAdd(values);
         handleClose();
     }, []);
 

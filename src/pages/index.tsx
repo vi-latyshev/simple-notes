@@ -55,3 +55,12 @@ const Home = () => {
 };
 
 export default Home;
+
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+    const notes = await getNotesList();
+
+    return {
+        props: { notes },
+        revalidate: 1,
+    };
+};

@@ -9,7 +9,7 @@ import { Header } from 'components/Header';
 import { Page } from 'components/Page';
 import { InputText } from 'components/controls';
 
-import type { NoteBase } from 'types/note';
+import type { NoteData } from 'types/note';
 
 const useStyles = makeStyles(() => ({
     noteContainer: {
@@ -27,7 +27,7 @@ export const NotePage = () => {
     const classes = useStyles();
     const route = useRouter();
 
-    const { control, trigger, formState } = useForm<NoteBase>();
+    const { control, trigger, formState } = useForm<NoteData>();
 
     const handleRemoveNote = useCallback(async () => {
         route.push('/');
