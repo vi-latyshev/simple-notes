@@ -1,12 +1,14 @@
 import { alpha, Container, makeStyles } from '@material-ui/core';
+import { SWRConfig } from 'swr';
 
 import { Footer } from 'components/Footer';
 
 import { MetaTags } from './MetaTags';
 
+import type { NextPageProps } from 'types/page';
 import type { MetaTagsProps } from './MetaTags';
 
-interface PageProps extends MetaTagsProps {
+interface PageProps extends MetaTagsProps, NextPageProps {
     title?: string;
     description?: string;
     children: NonNullable<React.ReactNode>;
@@ -26,11 +28,16 @@ const useStyles = makeStyles(({ palette }) => ({
     },
 }));
 
-export const Page = ({ title, description, children }: PageProps) => {
+export const Page = ({
+    title,
+    description,
+    swrFallback,
+    children,
+}: PageProps) => {
     const classes = useStyles();
 
     return (
-        <>
+        <SWRConfig value={{ fallback: swrFallback }}>
             <MetaTags title={title} description={description} />
             <Container disableGutters className={classes.pageContainer}>
                 <div className={classes.page}>
@@ -38,6 +45,6 @@ export const Page = ({ title, description, children }: PageProps) => {
                 </div>
                 <Footer />
             </Container>
-        </>
+        </SWRConfig>
     );
 };

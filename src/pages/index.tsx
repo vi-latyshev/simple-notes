@@ -1,24 +1,20 @@
 import { useCallback, useState } from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import { Page } from 'components/Page';
 import { Header } from 'components/Header';
-import { NoteItem } from 'components/NoteItem';
-import { AddNoteDialog } from 'components/AddNoteDialog';
 
-import type { AddNoteDialogProps } from 'components/AddNoteDialog';
+import { AddNoteModalView, ListNotesView } from 'views/home';
 
-const useStyles = makeStyles({
-    notesContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        margin: '30px 0',
-    },
-});
+import { getNotesList } from 'lib/api/db/notes';
 
-const Home = () => {
-    const classes = useStyles();
+import type { GetStaticProps } from 'next';
+import type { NextPageProps } from 'types/page';
+import type { ListNotesRes } from 'lib/api/routes/notes/list';
 
+interface HomePageProps extends NextPageProps<ListNotesRes> { }
+
+const Home = ({ swrFallback }: HomePageProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpenAddNote = useCallback(() => {
@@ -29,27 +25,18 @@ const Home = () => {
         setIsOpen(false);
     }, []);
 
-    const handleOnAddNote: AddNoteDialogProps['onAdd'] = useCallback((_values) => {
-
-    }, []);
-
     return (
-        <Page>
+        <Page swrFallback={swrFallback}>
             <Header title="Список задач">
                 <Button onClick={handleOpenAddNote}>
                     Добавить
                 </Button>
             </Header>
-            <AddNoteDialog
+            <AddNoteModalView
                 isOpen={isOpen}
-                onAdd={handleOnAddNote}
                 onClose={handleCloseAddNote}
             />
-            <main className={classes.notesContainer}>
-                {/* н/д */}
-                <NoteItem index={1} description="test" />
-                <NoteItem index={2} description="test 2" />
-            </main>
+            <ListNotesView />
         </Page>
     );
 };
@@ -60,7 +47,11 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
     const notes = await getNotesList();
 
     return {
-        props: { notes },
+        props: {
+            swrFallback: {
+                '/api/notes': { notes },
+            },
+        },
         revalidate: 1,
     };
 };

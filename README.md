@@ -2,6 +2,8 @@ This project is based on [old project with CRA](https://github.com/vi-latyshev/m
 
 # Simple Notes
 
+Fully flexible and highly extensible simple-notes
+
 **Attention:**
 - *that project was developed specifically to showcase my development stack*
 - *the design is ugly because i'm not designer, but developer*

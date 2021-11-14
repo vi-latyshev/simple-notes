@@ -4,7 +4,7 @@ import { Create, Delete } from '@material-ui/icons';
 
 import type { Note } from 'types/note';
 
-interface NoteItemProps extends Note { }
+interface ListNoteItemProps extends Note { }
 
 const useStyles = makeStyles(({ palette }) => ({
     note: {
@@ -39,10 +39,10 @@ const useStyles = makeStyles(({ palette }) => ({
     },
 }));
 
-export const NoteItem = ({
+export const ListNoteItem = ({
     id,
     description,
-}: NoteItemProps) => {
+}: ListNoteItemProps) => {
     const classes = useStyles();
 
     return (

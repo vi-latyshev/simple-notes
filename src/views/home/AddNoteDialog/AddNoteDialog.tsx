@@ -12,15 +12,15 @@ import { InputText } from 'components/controls';
 
 import type { NoteData } from 'types/note';
 
-export interface AddNoteDialogProps {
+export interface AddNoteModalViewProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-export const AddNoteDialog = ({
+export const AddNoteModalView = ({
     isOpen,
     onClose,
-}: AddNoteDialogProps) => {
+}: AddNoteModalViewProps) => {
     const {
         reset,
         control,
@@ -29,7 +29,7 @@ export const AddNoteDialog = ({
         getValues,
     } = useForm<NoteData>();
 
-    const handleClose: AddNoteDialogProps['onClose'] = useCallback(() => {
+    const handleClose: AddNoteModalViewProps['onClose'] = useCallback(() => {
         reset();
         onClose();
     }, []);

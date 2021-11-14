@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { SWRConfig } from 'swr';
 
 import { theme } from 'styles';
+import { fetcher } from 'utils/fetcher';
 
 import type { AppProps } from 'next/app';
 
@@ -13,8 +15,16 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return (
         <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Component {...pageProps} />
+            <SWRConfig
+                value={{
+                    fetcher,
+                    errorRetryCount: 3,
+                    focusThrottleInterval: 10000,
+                }}
+            >
+                <CssBaseline />
+                <Component {...pageProps} />
+            </SWRConfig>
         </ThemeProvider>
     );
 }
