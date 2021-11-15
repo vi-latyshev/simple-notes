@@ -3,14 +3,13 @@ import { SWRConfig } from 'swr';
 
 import { Footer } from 'components/Footer';
 
-import { MetaTags } from './MetaTags';
+import { MetaTags } from './utils/MetaTags';
 
-import type { NextPageProps } from 'types/page';
-import type { MetaTagsProps } from './MetaTags';
+import type { NotesPageStaticProps } from 'lib/pages/notes';
+import type { MetaTagsProps } from './utils/MetaTags';
 
-interface PageProps extends MetaTagsProps, NextPageProps {
-    title?: string;
-    description?: string;
+export interface NotesPageProps extends NotesPageStaticProps {
+    meta?: MetaTagsProps;
     children: NonNullable<React.ReactNode>;
 }
 
@@ -28,17 +27,16 @@ const useStyles = makeStyles(({ palette }) => ({
     },
 }));
 
-export const Page = ({
-    title,
-    description,
+export const NotesPage = ({
+    meta,
     swrFallback,
     children,
-}: PageProps) => {
+}: NotesPageProps) => {
     const classes = useStyles();
 
     return (
         <SWRConfig value={{ fallback: swrFallback }}>
-            <MetaTags title={title} description={description} />
+            <MetaTags {...meta} />
             <Container disableGutters className={classes.pageContainer}>
                 <div className={classes.page}>
                     {children}

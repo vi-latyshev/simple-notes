@@ -1,20 +1,18 @@
 import { useCallback, useState } from 'react';
 import { Button } from '@material-ui/core';
 
-import { Page } from 'components/Page';
+import { NotesPage } from 'components/Page';
 import { Header } from 'components/Header';
 
 import { AddNoteModalView, ListNotesView } from 'views/home';
 
-import { getNotesList } from 'lib/api/db/notes';
+import { getNotesPageStaticProps } from 'lib/pages/notes';
 
-import type { GetStaticProps } from 'next';
-import type { NextPageProps } from 'types/page';
-import type { ListNotesRes } from 'lib/api/routes/notes/list';
+import type { NotesPageProps } from 'components/Page';
 
-interface HomePageProps extends NextPageProps<ListNotesRes> { }
+interface HomePageProps extends NotesPageProps { }
 
-const Home = ({ swrFallback }: HomePageProps) => {
+const HomePage = (props: HomePageProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpenAddNote = useCallback(() => {
@@ -26,7 +24,7 @@ const Home = ({ swrFallback }: HomePageProps) => {
     }, []);
 
     return (
-        <Page swrFallback={swrFallback}>
+        <NotesPage {...props}>
             <Header title="Список задач">
                 <Button onClick={handleOpenAddNote}>
                     Добавить
@@ -37,21 +35,10 @@ const Home = ({ swrFallback }: HomePageProps) => {
                 onClose={handleCloseAddNote}
             />
             <ListNotesView />
-        </Page>
+        </NotesPage>
     );
 };
 
-export default Home;
+export default HomePage;
 
-export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
-    const notes = await getNotesList();
-
-    return {
-        props: {
-            swrFallback: {
-                '/api/notes': { notes },
-            },
-        },
-        revalidate: 1,
-    };
-};
+export const getStaticProps = getNotesPageStaticProps;

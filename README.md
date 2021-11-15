@@ -97,7 +97,7 @@ Others commands are used by auto services for build/deploy the project.
 |   |── constants               # frontend constants (links, contacts, socials and etc)
 |   |── hooks                   # common reuseble hooks
 |   |── icons                   # common reuseble icons
-|   |── lib                     # some libs for using in server (/pages/api/*)
+|   |── lib                     # some libs
 |   |── pages                   # names of pages for routing
 |   |   |── api                 # api directory by Next.js
 |   |   |   └── notes           # some any REST endpoint

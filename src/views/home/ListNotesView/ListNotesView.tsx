@@ -1,9 +1,8 @@
 import { makeStyles } from '@material-ui/core';
-import useSWR from 'swr';
+
+import { useNotesList } from 'hooks/useNotesList';
 
 import { ListNoteItem } from './ListNoteItem';
-
-import type { ListNotesRes } from 'lib/api/routes/notes/list';
 
 const useStyles = makeStyles(() => ({
     notesContainer: {
@@ -16,9 +15,8 @@ const useStyles = makeStyles(() => ({
 export const ListNotesView = () => {
     const classes = useStyles();
 
-    const { data } = useSWR<ListNotesRes>('/api/notes');
+    const { notes } = useNotesList();
 
-    const notes = data?.notes ?? [];
     const hasNotes = notes.length > 0;
 
     return (

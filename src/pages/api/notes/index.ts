@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { listNotesAPI } from 'lib/api/routes/notes/list';
+import { createNoteAPI } from 'lib/api/routes/notes/create';
 
 import type { ListNotesRes } from 'lib/api/routes/notes/list';
+import type { CreateNoteRes } from 'lib/api/routes/notes/create';
 
 export default async function notes(
     req: NextApiRequest,
-    res: NextApiResponse<ListNotesRes>,
+    res: NextApiResponse<ListNotesRes | CreateNoteRes>,
 ) {
     const { method } = req;
 
@@ -15,6 +17,7 @@ export default async function notes(
             await listNotesAPI(req, res);
             break;
         case 'POST':
+            await createNoteAPI(req, res);
             break;
         default:
             res.setHeader('Allow', ['GET', 'POST']);

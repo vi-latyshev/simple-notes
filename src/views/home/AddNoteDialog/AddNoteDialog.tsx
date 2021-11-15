@@ -7,10 +7,13 @@ import {
     DialogActions,
 } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
+import { useNotesList } from 'hooks/useNotesList';
 import { InputText } from 'components/controls';
 
-import type { NoteData } from 'types/note';
+import type { Note, NoteData } from 'types/note';
+import type { CreateNoteRes } from 'lib/api/routes/notes/create';
 
 export interface AddNoteModalViewProps {
     isOpen: boolean;
@@ -21,6 +24,8 @@ export const AddNoteModalView = ({
     isOpen,
     onClose,
 }: AddNoteModalViewProps) => {
+    const { notes, mutate } = useNotesList();
+
     const {
         reset,
         control,
@@ -41,6 +46,17 @@ export const AddNoteModalView = ({
             return;
         }
         const values = getValues();
+
+        const newNote: Note = {
+            id: String(notes.length + 1),
+            ...values,
+        };
+        mutate([...notes, newNote], false);
+
+        const resp = await axios.post<CreateNoteRes>('/api/notes', values);
+        const { data: respNewNote } = resp;
+        // @TODO FIX IT
+        mutate([...notes, respNewNote], false);
 
         handleClose();
     }, []);
