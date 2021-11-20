@@ -36,7 +36,7 @@ const NotePage = () => {
 
     const { control, trigger, formState } = useForm<NoteData>();
 
-    const handleRemoveNote = useCallback(async () => {
+    const handleDeleteNote = useCallback(async () => {
         route.push('/');
     }, []);
 
@@ -46,7 +46,6 @@ const NotePage = () => {
         if (!isValid) {
             return;
         }
-
         route.push('/');
     }, []);
 
@@ -58,7 +57,7 @@ const NotePage = () => {
                     endIcon={(
                         <Delete fontSize="inherit" />
                     )}
-                    onClick={handleRemoveNote}
+                    onClick={handleDeleteNote}
                 >
                     Удалить
                 </Button>

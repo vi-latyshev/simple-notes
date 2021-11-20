@@ -1,8 +1,13 @@
 import Link from 'next/link';
+import { useCallback } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 import { Create, Delete } from '@material-ui/icons';
+import axios from 'axios';
+
+import { useNotesList } from 'hooks/useNotesList';
 
 import type { Note } from 'types/note';
+import type { DeleteNoteRes } from 'lib/api/routes/notes/detele';
 
 interface ListNoteItemProps extends Note { }
 
@@ -45,6 +50,19 @@ export const ListNoteItem = ({
 }: ListNoteItemProps) => {
     const classes = useStyles();
 
+    const { mutate } = useNotesList();
+
+    const handleDeleteNote = useCallback(async () => {
+        mutate(async (notes = []) => {
+            const filteredNotes = notes.filter((note) => note.id !== id)
+                .map(({ id: _id, ...note }, index) => ({ id: String(index + 1), ...note }));
+
+            await axios.delete<DeleteNoteRes>(`/api/notes/${id}`);
+
+            return filteredNotes;
+        }, false);
+    }, []);
+
     return (
         <div className={classes.note}>
             <div className={classes.index}>
@@ -59,7 +77,11 @@ export const ListNoteItem = ({
                         <Create fontSize="inherit" />
                     </Button>
                 </Link>
-                <Button color="secondary" className={classes.button}>
+                <Button
+                    color="secondary"
+                    className={classes.button}
+                    onClick={handleDeleteNote}
+                >
                     <Delete fontSize="inherit" />
                 </Button>
             </div>

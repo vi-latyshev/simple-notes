@@ -27,17 +27,16 @@ export const createNoteAPI = async (req: Req, res: Res<CreateNoteRes>) => {
         const note = req.body as CreateNoteReqBody;
 
         if (typeof note !== 'object' || !checkReqBody(note)) {
-            res.status(400).end({ error: 'Invalid request body' });
+            res.status(400).end(JSON.stringify({ error: 'Invalid request body' }));
 
             return;
         }
-
         const createdNote = await createNote(req.body);
 
         res.status(201).json({ ...createdNote });
     } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(e);
-        res.status(500).end({ error: 'failed to load data' });
+        res.status(500).end(JSON.stringify({ error: 'failed to load data' }));
     }
 };

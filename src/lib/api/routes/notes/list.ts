@@ -14,6 +14,6 @@ export const listNotesAPI = async (_req: Req, res: Res<ListNotesRes>) => {
     } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(e);
-        res.status(500).end({ error: 'failed to load data' });
+        res.status(500).end(JSON.stringify({ error: 'failed to load data' }));
     }
 };

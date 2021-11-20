@@ -6,7 +6,7 @@ Fully flexible and highly extensible simple-notes
 
 **Attention:**
 - *that project was developed specifically to showcase my development stack*
-- *the design is ugly because i'm not designer, but developer*
+- *the design is ugly because i'm a developer, not a designer*
 
 ## Sections
 1. [Links](#links)

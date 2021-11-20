@@ -24,7 +24,7 @@ export const AddNoteModalView = ({
     isOpen,
     onClose,
 }: AddNoteModalViewProps) => {
-    const { notes, mutate } = useNotesList();
+    const { mutate } = useNotesList();
 
     const {
         reset,
@@ -47,16 +47,18 @@ export const AddNoteModalView = ({
         }
         const values = getValues();
 
-        const newNote: Note = {
-            id: String(notes.length + 1),
-            ...values,
-        };
-        mutate([...notes, newNote], false);
+        mutate(async (notesList = []) => {
+            const newNote: Note = {
+                id: String(notesList.length + 1),
+                ...values,
+            };
+            mutate([...notesList, newNote], false);
 
-        const resp = await axios.post<CreateNoteRes>('/api/notes', values);
-        const { data: respNewNote } = resp;
-        // @TODO FIX IT
-        mutate([...notes, respNewNote], false);
+            const resp = await axios.post<CreateNoteRes>('/api/notes', values);
+            const { data: respNewNote } = resp;
+
+            return [...notesList, respNewNote];
+        }, false);
 
         handleClose();
     }, []);

@@ -1,8 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-
 import { listNotesAPI } from 'lib/api/routes/notes/list';
 import { createNoteAPI } from 'lib/api/routes/notes/create';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ListNotesRes } from 'lib/api/routes/notes/list';
 import type { CreateNoteRes } from 'lib/api/routes/notes/create';
 
