@@ -27,24 +27,34 @@ export const createNote = async (note: NoteData): Promise<Note> => {
     };
 };
 
-export const deleteNote = async (noteId: NoteID): Promise<boolean> => {
-    const { id } = noteId;
-
+export const getNote = async (id: NoteID): Promise<Note | null> => {
     const noteIternalID = await redis.lindex(NOTE_LIST_KEY, Number(id) - 1);
 
     if (noteIternalID === null) {
-        return false;
+        return null;
+    }
+    const noteData = await redis.hgetall(NOTE_INDEX_KEY(noteIternalID)) as NoteData;
+
+    return {
+        id,
+        ...noteData,
+    };
+};
+
+export const deleteNote = async (id: NoteID): Promise<true | null> => {
+    const noteIternalID = await redis.lindex(NOTE_LIST_KEY, Number(id) - 1);
+
+    if (noteIternalID === null) {
+        return null;
     }
     const pipe = redis.pipeline();
 
     pipe.lrem(NOTE_LIST_KEY, 0, noteIternalID);
     pipe.del(NOTE_INDEX_KEY(noteIternalID));
 
-    const pipeResp = await pipe.exec().then(handlePipelineError);
+    await pipe.exec().then(handlePipelineError);
 
-    const [countDeleted] = pipeResp as [number, number];
-
-    return countDeleted > 0;
+    return true;
 };
 
 export const getNotesList = async (): Promise<Note[]> => {

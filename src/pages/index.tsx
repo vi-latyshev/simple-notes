@@ -1,44 +1,34 @@
-import { useCallback, useState } from 'react';
-import { Button } from '@material-ui/core';
-
 import { NotesPage } from 'components/Page';
-import { Header } from 'components/Header';
+import { HeaderNotesView, ListNotesView } from 'views/home';
 
-import { AddNoteModalView, ListNotesView } from 'views/home';
+import { getNotesList } from 'lib/api/db/notes';
 
-import { getNotesPageStaticProps } from 'lib/pages/notes';
+import type { GetStaticProps } from 'next';
+import type { NotesPageStaticProps } from 'components/Page';
+import type { Note } from 'types/note';
 
-import type { NotesPageProps } from 'components/Page';
+type NotesPageData = Note[];
 
-interface HomePageProps extends NotesPageProps { }
+interface HomePageProps<T> extends NotesPageStaticProps<T> { }
 
-const HomePage = (props: HomePageProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+const HomePage = (props: HomePageProps<NotesPageData>) => (
+    <NotesPage {...props}>
+        <HeaderNotesView />
+        <ListNotesView />
+    </NotesPage>
+);
 
-    const handleOpenAddNote = useCallback(() => {
-        setIsOpen(true);
-    }, []);
+export const getStaticProps: GetStaticProps<HomePageProps<NotesPageData>> = async () => {
+    const notes = await getNotesList();
 
-    const handleCloseAddNote = useCallback(() => {
-        setIsOpen(false);
-    }, []);
-
-    return (
-        <NotesPage {...props}>
-            <Header title="Список задач">
-                <Button onClick={handleOpenAddNote}>
-                    Добавить
-                </Button>
-            </Header>
-            <AddNoteModalView
-                isOpen={isOpen}
-                onClose={handleCloseAddNote}
-            />
-            <ListNotesView />
-        </NotesPage>
-    );
+    return {
+        props: {
+            swrFallback: {
+                '/api/notes': notes,
+            },
+        },
+        revalidate: 10,
+    };
 };
 
 export default HomePage;
-
-export const getStaticProps = getNotesPageStaticProps;

@@ -5,10 +5,19 @@ import { Footer } from 'components/Footer';
 
 import { MetaTags } from './utils/MetaTags';
 
-import type { NotesPageStaticProps } from 'lib/pages/notes';
 import type { MetaTagsProps } from './utils/MetaTags';
 
-export interface NotesPageProps extends NotesPageStaticProps {
+type SWRFallbackData = unknown;
+
+interface SWRFallback<T extends SWRFallbackData> {
+    [apiEndpoint: string]: T;
+}
+
+export interface NotesPageStaticProps<T extends SWRFallbackData> {
+    swrFallback?: SWRFallback<T>;
+}
+
+interface NotesPageProps<T extends SWRFallbackData> extends NotesPageStaticProps<T> {
     meta?: MetaTagsProps;
     children: NonNullable<React.ReactNode>;
 }
@@ -27,11 +36,11 @@ const useStyles = makeStyles(({ palette }) => ({
     },
 }));
 
-export const NotesPage = ({
+export const NotesPage = <T extends SWRFallbackData>({
     meta,
-    swrFallback,
+    swrFallback = {},
     children,
-}: NotesPageProps) => {
+}: NotesPageProps<T>) => {
     const classes = useStyles();
 
     return (

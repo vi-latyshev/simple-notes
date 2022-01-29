@@ -1,9 +1,9 @@
-export interface NoteID {
-    id: string;
-}
+export type NoteID = string;
 
-export interface NoteData {
+export type NoteData = {
     description: string;
-}
+};
 
-export interface Note extends NoteID, NoteData { }
+export type Note = NoteData & {
+    id: NoteID;
+};

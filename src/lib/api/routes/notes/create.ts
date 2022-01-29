@@ -1,7 +1,6 @@
-import { NextApiRequest as Req, NextApiResponse as Res } from 'next';
-
 import { createNote } from 'lib/api/db/notes';
 
+import type { NextApiRequest as Req, NextApiResponse as Res } from 'next';
 import type { Note, NoteData } from 'types/note';
 
 interface CreateNoteReqBody extends NoteData { }

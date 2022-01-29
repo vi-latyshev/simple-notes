@@ -1,7 +1,6 @@
-import { NextApiRequest as Req, NextApiResponse as Res } from 'next';
-
 import { getNotesList } from 'lib/api/db/notes';
 
+import type { NextApiRequest as Req, NextApiResponse as Res } from 'next';
 import type { Note } from 'types/note';
 
 export type ListNotesRes = Note[];

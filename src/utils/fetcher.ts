@@ -3,7 +3,7 @@ import axios from 'axios';
 import type { AxiosError } from 'axios';
 
 interface APIErrorJSON {
-    message: string;
+    error: string;
     code: number;
 }
 
@@ -16,7 +16,7 @@ export const fetcher = async <T extends Object>(url: string): Promise<T> => {
         const error = e as AxiosError<APIErrorJSON>;
 
         if (error?.response) {
-            throw Error(`API (${url}) responded with error: ${e.response.data.message}`);
+            throw Error(`API (${url}) responded with error: ${error.response.data.error}`);
         }
         if (error?.request) {
             throw Error(`API (${url}) did not respond.`);
